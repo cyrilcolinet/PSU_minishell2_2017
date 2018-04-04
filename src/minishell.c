@@ -16,8 +16,10 @@ void minishell(shell_t *shell)
 		signal(SIGINT, signal_handler);
 		display_prompt();
 		redirect_stdin(&stdin);
-		if (stdin == NULL)
+		if (stdin == NULL) {
+			shell->status = cmd_ret;
 			break;
+		}
 		result = command_executor(stdin, shell);
 		env_check_home_change(shell);
 		free(stdin);
