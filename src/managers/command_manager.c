@@ -7,10 +7,21 @@
 
 # include "minishell.h"
 
+void signal_ret_checher(pid_t pid, shell_t *shell)
+{
+	int wait_ret = waitpid(pid, &shell->cmd_ret, 0);
+	if (WIFSIGNALED(shell->cmd_ret)) {
+		if (WTERMSIG(shell->cmd_ret) != 0 && WTERMSIG(shell->cmd_ret) != SIGINT) {
+			my_putstr(strsignal(WTERMSIG(shell->cmd_ret)));
+			my_putstr("\n");
+		}
+	}
+	kill(wait_ret, SIGKILL);
+}
+
 bool run_command(char *bin_path, char **arg, shell_t *shell)
 {
 	pid_t pid = fork();
-	int wait_ret = -1;
 	char **env = NULL;
 
 	signal(SIGINT, proc_signal_handler);
@@ -20,15 +31,9 @@ bool run_command(char *bin_path, char **arg, shell_t *shell)
 		my_freetab(env);
 	} else if (pid < 0) {
 		free(bin_path);
-		my_putstr("Fork failed to create new process.\n");
 		return (false);
 	}
-	wait_ret = waitpid(pid, &shell->cmd_ret, 0);
-	if (WTERMSIG(shell->cmd_ret) != 0 && WTERMSIG(shell->cmd_ret) != SIGINT) {
-		my_putstr(strsignal(WTERMSIG(shell->cmd_ret)));
-		my_putstr("\n");
-	}
-	kill(wait_ret, SIGKILL);
+	signal_ret_checher(pid, shell);
 	if (bin_path)
 		free(bin_path);
 	return (true);

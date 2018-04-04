@@ -80,6 +80,7 @@ bool 		can_be_executed(char *path, stat_t i, char **arg, shell_t *shell);
 bool 		bins(char **arg, shell_t *shell);
 
 // managers/command_manager.c
+void        signal_ret_checker(pid_t pid, shell_t *shell);
 bool 		run_command(char *bin_path, char **arg, shell_t *shell);
 int 		builtin(char *stdin, char **arg, shell_t *shell);
 int 		command_executor(char *stdin, shell_t *shell);

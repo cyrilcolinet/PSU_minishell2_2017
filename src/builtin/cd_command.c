@@ -21,7 +21,7 @@ void change_dir(char *path, shell_t *shell)
 			my_putstr("cd: permission denied: ");
 		} else {
 			my_putstr(path);
-			my_putstr(": Not a directory");
+			my_putstr(": Not a directory.\n");
 			shell->cmd_ret = 1;
 			return;
 		}
