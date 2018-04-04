@@ -17,7 +17,7 @@ void minishell(shell_t *shell)
 		display_prompt();
 		redirect_stdin(&stdin);
 		if (stdin == NULL) {
-			shell->status = cmd_ret;
+			shell->status = shell->cmd_ret;
 			break;
 		}
 		result = command_executor(stdin, shell);
