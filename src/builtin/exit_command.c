@@ -13,7 +13,7 @@ int exit_command(char *stdin, char **arg, shell_t *shell)
 	(void)stdin;
 
 	if (arg[1] == NULL)
-		shell->status = 0;
+		shell->status = shell->cmd_ret;
 	else
 		shell->status = my_atoi(arg[1]);
 

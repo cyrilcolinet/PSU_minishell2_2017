@@ -15,13 +15,15 @@ void change_dir(char *path, shell_t *shell)
 	if (!chdir(path)) {
 		env_set_variable("OLDPWD", cwd, shell);
 	} else {
-		my_putstr("cd: ");
 		if (access(path, F_OK) == -1) {
-			my_putstr("no such file or directory: ");
+			my_putstr("cd: no such file or directory: ");
 		} else if (access(path, R_OK) == -1) {
-			my_putstr("permission denied: ");
+			my_putstr("cd: permission denied: ");
 		} else {
-			my_putstr("not a directory: ");
+			my_putstr(path);
+			my_putstr(": Not a directory");
+			shell->cmd_ret = 1;
+			return;
 		}
 		my_putstr(path);
 		my_putstr("\n");
