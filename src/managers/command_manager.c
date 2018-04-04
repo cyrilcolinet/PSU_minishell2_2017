@@ -10,6 +10,7 @@
 void signal_ret_checher(pid_t pid, shell_t *shell)
 {
 	int wait_ret = waitpid(pid, &shell->cmd_ret, 0);
+	
 	if (WIFSIGNALED(shell->cmd_ret)) {
 		if (WTERMSIG(shell->cmd_ret) != 0 && WTERMSIG(shell->cmd_ret) != SIGINT) {
 			my_putstr(strsignal(WTERMSIG(shell->cmd_ret)));
