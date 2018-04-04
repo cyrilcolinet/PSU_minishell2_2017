@@ -84,6 +84,7 @@ int command_executor(char *stdin, shell_t *shell)
 	}
 	my_putstr(arg[0]);
 	my_putstr(" : Command not found.\n");
+	shell->cmd_ret = 1;
 	my_freetab(arg);
 	return (res);
 }
