@@ -55,7 +55,7 @@ char *env_get_variable(char *variable, shell_t *shell)
 		tmp = tmp->next;
 	}
 
-	return (NULL);
+	return ("");
 }
 
 void env_check_home_change(shell_t *shell)
