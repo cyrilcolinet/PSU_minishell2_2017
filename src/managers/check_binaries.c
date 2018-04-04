@@ -15,6 +15,7 @@ bool can_be_executed(char *path, stat_t i, char **arg, shell_t *shell)
 		} else {
 			my_putstr(arg[0]);
 			my_putstr(" : Permission denied.\n");
+			shell->cmd_ret = 1;
 		}
 
 		free(path);
