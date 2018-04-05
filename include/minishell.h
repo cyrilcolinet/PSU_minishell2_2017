@@ -83,6 +83,7 @@ bool 		bins(char **arg, shell_t *shell);
 void        signal_ret_checker(pid_t pid, shell_t *shell);
 bool 		run_command(char *bin_path, char **arg, shell_t *shell);
 int 		builtin(char *stdin, char **arg, shell_t *shell);
+int         command_exists(int *res, char **arg, char *stdin, shell_t *s);
 int 		command_executor(char *stdin, shell_t *shell);
 
 // managers/redirect_manager.c
