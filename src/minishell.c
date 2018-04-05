@@ -7,10 +7,24 @@
 
 # include "minishell.h"
 
+char **split_commands_input(char *stdin)
+{
+	char **ret = my_strtok(stdin, ';');
+
+	if (ret == NULL) {
+		ret = malloc(sizeof(*ret));
+		ret[0] = NULL;
+		return (ret);
+	}
+
+	return (ret);
+}
+
 void minishell(shell_t *shell)
 {
 	char *stdin = NULL;
 	int result = 0;
+	char **splited_input = NULL;
 
 	while (result != -1) {
 		signal(SIGINT, signal_handler);
@@ -20,8 +34,10 @@ void minishell(shell_t *shell)
 			shell->status = shell->cmd_ret;
 			break;
 		}
-		result = command_executor(stdin, shell);
+		splited_input = split_commands_input(stdin);
+		result = command_executor(splited_input, shell);
 		env_check_home_change(shell);
+		my_freetab(splited_input);
 		free(stdin);
 	}
 }

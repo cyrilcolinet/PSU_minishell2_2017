@@ -85,21 +85,25 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 	return (-2);
 }
 
-int command_executor(char *stdin, shell_t *shell)
+int command_executor(char **commands, shell_t *shell)
 {
 	int res = 1;
-	char **arg = my_strtok(stdin, ' ');
+	char **arg = NULL;
+	int cmd = 0;
 
-	if (arg[0] == NULL) {
-		my_freetab(arg);
-		return (1);
-	}
+	for (cmd = 0; commands[cmd]; cmd++) {
+		arg = my_strtok(commands[cmd], ' ');
+		if (arg[0] == NULL) {
+			my_freetab(arg);
+			return (1);
+		}
 
-	if (command_exists(&res, arg, stdin, shell) == -2) {
-		my_putstr(arg[0]);
-		my_putstr(": Command not found.\n");
-		shell->cmd_ret = 1;
-		my_freetab(arg);
+		if (command_exists(&res, arg, commands[cmd], shell) == -2) {
+			my_putstr(arg[0]);
+			my_putstr(": Command not found.\n");
+			shell->cmd_ret = 1;
+			my_freetab(arg);
+		}
 	}
 
 	return (res);
