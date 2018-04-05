@@ -10,7 +10,7 @@
 void signal_ret_checher(pid_t pid, shell_t *shell)
 {
 	int wait_ret = waitpid(pid, &shell->cmd_ret, 0);
-	
+
 	if (WIFSIGNALED(shell->cmd_ret)) {
 		if (WTERMSIG(shell->cmd_ret) != 0 && WTERMSIG(shell->cmd_ret) != SIGINT) {
 			my_putstr(strsignal(WTERMSIG(shell->cmd_ret)));
@@ -82,7 +82,7 @@ int command_executor(char *stdin, shell_t *shell)
 	}
 
 	if (lstat(arg[0], &info) != -1) {
-		if (info.st_mode & S_IXUSR) {
+		if (info.st_mode & S_IXUSR && !S_ISDIR(info.st_mode)) {
 			run_command(my_strdup(arg[0]), arg, shell);
 			my_freetab(arg);
 			return (1);
