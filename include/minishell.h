@@ -43,20 +43,11 @@ char 	*replace_char(char *str, char find, char replace);
 
 // builtin/exit_command.c
 int 	exit_command(char *stdin,  char **arg,  shell_t *shell);
-
-// builtin/cd_command.c
 int 	cd_command(char *stdin, char **arg, shell_t *shell);
-
-// builtin/setenv_command.c
+int     env_command(char *stdin, char **arg, shell_t *shell);
 int 	setenv_command(char *stdin, char **arg, shell_t *shell);
-
-// builtin/unsetenv_command.c
 int 	unsetenv_command(char *stdin, char **arg, shell_t *shell);
-
-// builtin/printenv_command.c
 int 	printenv_command(char *stdin, char **arg, shell_t *shell);
-
-// builtin/echo_command.c
 int 	echo_command(char *stdin, char **arg, shell_t *shell);
 
 // actions/environment_actions.c

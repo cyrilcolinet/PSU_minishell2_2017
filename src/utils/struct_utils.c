@@ -46,7 +46,7 @@ shell_t *configure(char **env)
 		return (NULL);
 
 	shell = malloc(sizeof(shell_t));
-
+	
 	if (shell == NULL)
 		return (NULL);
 

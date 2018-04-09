@@ -11,6 +11,8 @@
 struct 	env_t;
 struct 	shell_t;
 
+typedef int (*builtin_fct_t[])(char *, char **, struct shell_t *);
+
 typedef enum cmd_t {
 	cmdExit,
 	cmdCD,
@@ -31,6 +33,7 @@ typedef struct shell_t {
 	char 			*path;
 	int 			cmd_ret;
 	env_t 			*env;
+	builtin_fct_t	cmd;
 } 	shell_t;
 
 # endif

@@ -53,7 +53,7 @@ int builtin(char *stdin, char **arg, shell_t *shell)
 	else if (my_strequ(arg[0], "cd"))
 		res = cd_command(stdin, arg, shell);
 	else if (my_strequ(arg[0], "env"))
-		print_environment(shell), res = 1;
+		res = env_command(stdin, arg, shell);
 	else if (my_strequ(arg[0], "setenv"))
 		res = setenv_command(stdin, arg, shell);
 	else if (my_strequ(arg[0], "unsetenv"))
