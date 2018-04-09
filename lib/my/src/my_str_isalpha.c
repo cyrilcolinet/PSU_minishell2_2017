@@ -16,9 +16,8 @@ bool my_str_isalpha(char *s)
 		return (false);
 
 	while (*s) {
-		if (!((*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')))
-			alpha = false;
-		if (!(*s <= '0' || *s >= '9'))
+		if (!((*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')
+		|| (*s >= '0' && *s <= '9')))
 			alpha = false;
 		s++;
 	}
