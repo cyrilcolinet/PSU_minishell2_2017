@@ -9,13 +9,18 @@
 
 int exit_command(char *stdin, char **arg, shell_t *shell)
 {
-	int res = -1;
 	(void)stdin;
 
-	if (arg[1] == NULL)
-		shell->status = shell->cmd_ret;
-	else
-		shell->status = my_atoi(arg[1]);
+	if (arg[1]) {
+		if (arg[2]) {
+			my_putstr("exit: Expression Syntax.\n");
+			return (1);
+		}
 
-	return (res);
+		shell->status = my_atoi(arg[1]);
+		return (-1);
+	}
+
+	shell->status = shell->cmd_ret;
+	return (-1);
 }

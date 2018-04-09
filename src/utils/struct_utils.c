@@ -46,16 +46,16 @@ shell_t *configure(char **env)
 		return (NULL);
 
 	shell = malloc(sizeof(shell_t));
-	
+
 	if (shell == NULL)
 		return (NULL);
 
 	shell->status = 0;
 	shell->env = configure_env(env);
-
 	if (shell->env == NULL)
 		return (NULL);
 
+	shell->cmd_ret = 0;
 	shell->path = my_strdup(env_get_variable("PATH", shell));
 	env_home = my_strdup(env_get_variable("HOME", shell));
 
