@@ -11,6 +11,15 @@
 struct 	env_t;
 struct 	shell_t;
 
+typedef enum cmd_t {
+	cmdExit,
+	cmdCD,
+	cmdEnv,
+	cmdSetenv,
+	cmdUnsetenv,
+	cmdPrintenv
+}	cmd_t;
+
 typedef struct env_t {
 	char 			*variable;
 	char 			*content;
