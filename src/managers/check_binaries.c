@@ -9,7 +9,7 @@
 
 bool can_be_executed(char *path, stat_t i, char **arg, shell_t *shell)
 {
-	if (i.st_mode & S_IFREG) {
+	if (S_ISREG(i.st_mode)) {
 		if (i.st_mode & S_IXUSR) {
 			return (run_command(path, arg, shell));
 		} else {
