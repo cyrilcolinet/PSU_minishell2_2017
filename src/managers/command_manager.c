@@ -9,11 +9,14 @@
 
 void signal_ret_checher(pid_t pid, shell_t *shell)
 {
-	int wait_ret = waitpid(pid, &shell->cmd_ret, 0);
+	int wait_ret = -1;
 	int termsig = 0;
+	int status = 0;
 
-	if (WIFSIGNALED(shell->cmd_ret)) {
-		termsig = WTERMSIG(shell->cmd_ret);
+	wait_ret = waitpid(pid, &status, 0);
+
+	if (WIFSIGNALED(status)) {
+		termsig = WTERMSIG(status);
 
 		if (termsig != 0 && termsig != SIGINT) {
 			my_putstr(strsignal(termsig));
@@ -21,6 +24,7 @@ void signal_ret_checher(pid_t pid, shell_t *shell)
 			shell->cmd_ret = termsig + 128;
 		}
 	}
+	
 	kill(wait_ret, SIGKILL);
 }
 
