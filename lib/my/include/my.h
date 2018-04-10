@@ -369,4 +369,6 @@ void my_freetab(char **arr);
 
 bool my_strequ(char *str1, char *str2);
 
+void my_putnstr(char *str, int n);
+
 # endif
