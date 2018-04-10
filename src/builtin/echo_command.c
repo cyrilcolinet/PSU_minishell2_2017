@@ -10,7 +10,7 @@
 void echo_output(char **arg, int index)
 {
 	int len = my_strlen(arg[index]);
-	bool starts_with = IS_QUOTE(*arg[index]);
+	bool starts_with = IS_QUOTE(arg[index][0]);
 	bool ends_with = IS_QUOTE(arg[index][len - 1]);
 
 	if (starts_with && ends_with) {
@@ -30,21 +30,22 @@ void echo_output(char **arg, int index)
 int echo_command(char *stdin, char **arg, shell_t *shell)
 {
 	bool flagged = false;
-	int i = 1;
+	int pos = 1;
 	(void)shell;
 
 	if (!arg[1]) {
 		my_putstr("\n");
 		return (1);
-	} else if (my_strequ(*arg, "-n")) {
+	} else if (my_strequ(arg[1], "-n")) {
 		flagged = true;
-		i++;
+		pos++;
 	}
 
-	while (arg[i++]) {
-		echo_output(arg, i);
-		if (!arg[i + 1] && !flagged)
+	while (arg[pos]) {
+		echo_output(arg, pos);
+		if (!arg[pos + 1] && !flagged)
 			my_putstr("\n");
+		pos++;
 	}
 
 	return (1);
