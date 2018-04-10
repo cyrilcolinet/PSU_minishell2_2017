@@ -81,6 +81,7 @@ int 	command_executor(char **commands, shell_t *shell);
 void 	redirect_stdin(char **stdin);
 
 // handlers/signal_handler.c
+void    print_signal(char *signal);
 void 	signal_handler(int signo);
 void 	proc_signal_handler(int signo);
 

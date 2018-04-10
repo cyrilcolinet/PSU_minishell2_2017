@@ -19,12 +19,14 @@ void signal_ret_checher(pid_t pid, shell_t *shell)
 		termsig = WTERMSIG(status);
 
 		if (termsig != 0 && termsig != SIGINT) {
-			my_putstr(strsignal(termsig));
+			print_signal(strsignal(termsig));
+			if (WCOREDUMP(status))
+				my_putstr(" (core dumped)");
 			my_putstr("\n");
 			shell->cmd_ret = termsig + 128;
 		}
 	}
-	
+
 	kill(wait_ret, SIGKILL);
 }
 

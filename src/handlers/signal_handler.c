@@ -7,6 +7,16 @@
 
 # include "minishell.h"
 
+void print_signal(char *sig)
+{
+	if (my_strequ(sig, "Floating point exception")) {
+		my_putstr("Floating exception");
+		return;
+	}
+
+	my_putstr(sig);
+}
+
 void signal_handler(int signo)
 {
 	if (signo == SIGINT) {
