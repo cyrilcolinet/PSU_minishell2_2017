@@ -8,6 +8,8 @@
 # ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define IS_QUOTE(x)    (x == '\"' || x == '\'')
+
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>

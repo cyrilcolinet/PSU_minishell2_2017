@@ -66,7 +66,7 @@ int builtin(char *stdin, char **arg, shell_t *shell)
 		res = unsetenv_command(stdin, arg, shell);
 	else if (my_strequ(arg[0], "printenv"))
 		res = printenv_command(stdin, arg, shell);
-	else if (my_strequ(stdin, "echo $?"))
+	else if (my_strequ(arg[0], "echo"))
 		res = echo_command(stdin, arg, shell);
 
 	return (res);
