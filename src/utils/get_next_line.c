@@ -7,11 +7,11 @@
 
 #include "minishell.h"
 
-static int get_character(int fdesc, char *str)
+static ssize_t get_character(int fdesc, char *str)
 {
 	static int off = 0;
 	static char buff[READ_SIZE];
-	static int reader = READ_SIZE;
+	static ssize_t reader = READ_SIZE;
 
 	if (off >= reader || off == 0) {
 		off = 0;
@@ -43,7 +43,7 @@ char *get_next_line(int fdesc)
 {
 	char *line = my_strconfigure(READ_SIZE);
 	int i = 0;
-	int reader = get_character(fdesc, &line[i]);
+	ssize_t reader = get_character(fdesc, &line[i]);
 
 	if (reader == 0 || line == NULL || fdesc < 0)
 		return (return_freed(line, NULL));
