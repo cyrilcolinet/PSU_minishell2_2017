@@ -7,29 +7,6 @@
 
 # include "minishell.h"
 
-void signal_ret_checher(pid_t pid, shell_t *shell)
-{
-	int wait_ret = -1;
-	int termsig = 0;
-	int status = 0;
-
-	wait_ret = waitpid(pid, &status, 0);
-
-	if (WIFSIGNALED(status)) {
-		termsig = WTERMSIG(status);
-
-		if (termsig != 0 && termsig != SIGINT) {
-			print_signal(strsignal(termsig));
-			if (WCOREDUMP(status))
-				my_putstr(" (core dumped)");
-			my_putstr("\n");
-			shell->cmd_ret = termsig + 128;
-		}
-	}
-
-	kill(wait_ret, SIGKILL);
-}
-
 bool run_command(char *bin_path, char **arg, shell_t *shell)
 {
 	pid_t pid = fork();
@@ -44,7 +21,7 @@ bool run_command(char *bin_path, char **arg, shell_t *shell)
 		free(bin_path);
 		return (false);
 	}
-	signal_ret_checher(pid, shell);
+	signal_ret_checker(pid, shell);
 	if (bin_path)
 		free(bin_path);
 	return (true);
