@@ -84,7 +84,10 @@ void 	redirect_stdin(char **stdin);
 
 // managers/pipes/pipes_manager.c
 void 	get_piped_commands(char *cmd, shell_t *shell);
-int 	perform_pipes(char *cmd, char **arg, shell_t *shell);
+int 	perform_pipes(char *cmd, shell_t *shell);
+
+// managers/redirections/redir_manager.c
+int		perform_redirections(char *cmd, shell_t *shell);
 
 // handlers/signal_handler.c
 void    print_signal(char *signal);

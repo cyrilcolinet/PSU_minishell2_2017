@@ -21,7 +21,7 @@ void get_piped_commands(char *cmd, shell_t *shell)
 	shell->pipes->cmds = my_strtok(cmd, '|');
 }
 
-int perform_pipes(char *cmd, char **arg, shell_t *shell)
+int perform_pipes(char *cmd, shell_t *shell)
 {
 	int res = 0;
 
@@ -31,7 +31,5 @@ int perform_pipes(char *cmd, char **arg, shell_t *shell)
 		command_executor(shell->pipes->cmds, true, shell);
 	}
 
-	if (res)
-		my_freetab(arg);
 	return (res);
 }

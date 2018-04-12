@@ -49,6 +49,7 @@ int builtin(char *stdin, char **arg, shell_t *shell)
 	return (res);
 }
 
+// TODO: Fix kill when execute a folder and add permission check
 int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 {
 	stat_t info;
@@ -61,7 +62,6 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 		return (-1);
 	}
 
-	// TODO: Fix kill when execute a folder and add permission check
 	if (lstat(arg[0], &info) != -1) {
 		if (info.st_mode & S_IXUSR && !S_ISDIR(info.st_mode)) {
 			run_command(my_strdup(arg[0]), arg, shell);
@@ -73,6 +73,23 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 	return (-2);
 }
 
+int perform_pipes_and_redir(char *cmd, char **arg, bool piped, shell_t *shell)
+{
+	int ret = 0;
+
+	if (!piped) {
+		ret = perform_pipes(cmd, shell);
+		
+		if (ret > 0) {
+			my_freetab(arg);
+			return (ret);
+		}
+	}
+
+	ret = perform_redirections(cmd, shell);
+	return (ret);
+}
+
 int command_executor(char **commands, bool piped, shell_t *shell)
 {
 	int res = 1;
@@ -81,8 +98,8 @@ int command_executor(char **commands, bool piped, shell_t *shell)
 
 	for (cmd = 0; commands[cmd]; cmd++) {
 		arg = my_strtok(commands[cmd], ' ');
-		if (!piped && (res = perform_pipes(commands[cmd], arg, shell)) != 0)
-			return (res);
+		if (perform_pipes_and_redir(commands[cmd], arg, piped, shell))
+			return (1);
 
 		if (arg[0] == NULL) {
 			my_freetab(arg);
