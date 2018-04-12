@@ -35,7 +35,7 @@ void minishell(shell_t *shell)
 			break;
 		}
 		splited_input = split_commands_input(stdin);
-		result = command_executor(splited_input, shell);
+		result = command_executor(splited_input, false, shell);
 		env_check_home_change(shell);
 		my_freetab(splited_input);
 		free(stdin);

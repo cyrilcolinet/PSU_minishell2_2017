@@ -84,8 +84,9 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 		return (-1);
 	}
 
+	// TODO: Fix kill when execute a folder and add permission check
 	if (lstat(arg[0], &info) != -1) {
-		if (info.st_mode & S_IXUSR/* && !S_ISDIR(info.st_mode)*/) {
+		if (info.st_mode & S_IXUSR && !S_ISDIR(info.st_mode)) {
 			run_command(my_strdup(arg[0]), arg, shell);
 			my_freetab(arg);
 			return (1);
@@ -95,7 +96,7 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 	return (-2);
 }
 
-int command_executor(char **commands, shell_t *shell)
+int command_executor(char **commands, bool piped, shell_t *shell)
 {
 	int res = 1;
 	char **arg = NULL;
@@ -103,18 +104,18 @@ int command_executor(char **commands, shell_t *shell)
 
 	for (cmd = 0; commands[cmd]; cmd++) {
 		arg = my_strtok(commands[cmd], ' ');
+		if (!piped && (res = perform_pipes(commands[cmd], arg, shell)) != 0)
+			return (res);
+
 		if (arg[0] == NULL) {
 			my_freetab(arg);
 			return (1);
-		}
-
-		if (command_exists(&res, arg, commands[cmd], shell) == -2) {
+		} else if (command_exists(&res, arg, commands[cmd], shell) == -2) {
 			my_putstr(arg[0]);
 			my_putstr(": Command not found.\n");
 			shell->cmd_ret = 1;
 			my_freetab(arg);
 		}
 	}
-
 	return (res);
 }

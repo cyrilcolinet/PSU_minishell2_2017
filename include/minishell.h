@@ -77,10 +77,14 @@ void    signal_ret_checker(pid_t pid, shell_t *shell);
 bool 	run_command(char *bin_path, char **arg, shell_t *shell);
 int 	builtin(char *stdin, char **arg, shell_t *shell);
 int     command_exists(int *res, char **arg, char *stdin, shell_t *s);
-int 	command_executor(char **commands, shell_t *shell);
+int 	command_executor(char **commands, bool piped, shell_t *shell);
 
 // managers/redirect_manager.c
 void 	redirect_stdin(char **stdin);
+
+// managers/pipes/pipes_manager.c
+void 	get_piped_commands(char *cmd, shell_t *shell);
+int 	perform_pipes(char *cmd, char **arg, shell_t *shell);
 
 // handlers/signal_handler.c
 void    print_signal(char *signal);
