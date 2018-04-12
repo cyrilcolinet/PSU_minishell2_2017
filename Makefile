@@ -33,6 +33,8 @@ SRC_FILES				= 	main.c 										\
 							managers/input_manager.c 					\
 							managers/commands/check_binaries.c 			\
 							managers/commands/command_manager.c 		\
+							managers/redirections/redirect_manager.c	\
+							managers/pipes/pipes_manager.c 				\
 							handlers/signal_handler.c
 
 SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
