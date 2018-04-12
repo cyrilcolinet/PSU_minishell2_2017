@@ -85,7 +85,7 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 	}
 
 	if (lstat(arg[0], &info) != -1) {
-		if (info.st_mode & S_IXUSR && !S_ISDIR(info.st_mode)) {
+		if (info.st_mode & S_IXUSR/* && !S_ISDIR(info.st_mode)*/) {
 			run_command(my_strdup(arg[0]), arg, shell);
 			my_freetab(arg);
 			return (1);

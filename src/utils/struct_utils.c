@@ -21,6 +21,7 @@ void free_all(shell_t *shell)
 
 	free(env_home);
 	free(shell->path);
+	free(shell->pipes);
 	free(shell);
 }
 
@@ -38,6 +39,19 @@ env_t *configure_env(char **env)
 	return (env_s);
 }
 
+pipe_t *configure_pipe_struct(void)
+{
+	pipe_t *pipe = malloc(sizeof(*pipe));
+
+	if (pipe == NULL)
+		return (NULL);
+
+	pipe->cmd_count = 0;
+	pipe->cmds = NULL;
+
+	return (pipe);
+}
+
 shell_t *configure(char **env)
 {
 	shell_t *shell = NULL;
@@ -46,18 +60,17 @@ shell_t *configure(char **env)
 		return (NULL);
 
 	shell = malloc(sizeof(shell_t));
-
 	if (shell == NULL)
 		return (NULL);
 
 	shell->status = 0;
 	shell->env = configure_env(env);
-	if (shell->env == NULL)
+	shell->pipes = configure_pipe_struct();
+	if (shell->env == NULL || shell->pipes == NULL)
 		return (NULL);
 
 	shell->cmd_ret = 0;
 	shell->path = my_strdup(env_get_variable("PATH", shell));
 	env_home = my_strdup(env_get_variable("HOME", shell));
-
 	return (shell);
 }

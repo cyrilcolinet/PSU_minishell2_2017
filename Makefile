@@ -15,24 +15,24 @@ SRC_DIR 				= 	src/
 
 TEST_DIR				= 	tests/
 
-SRC_FILES				= 	main.c 								\
-							minishell.c 						\
-							utils/struct_utils.c 				\
-							utils/parsing_utils.c 				\
-							utils/get_next_line.c 				\
-							builtin/exit_command.c 				\
-							builtin/cd_command.c 				\
-							builtin/setenv_command.c 			\
-							builtin/unsetenv_command.c 			\
-							builtin/printenv_command.c 			\
-							builtin/echo_command.c 				\
-							builtin/env_command.c 				\
-							managers/env_manager.c 				\
-							managers/prompt_manager.c 			\
-							managers/redirect_manager.c 		\
-							managers/check_binaries.c 			\
-							managers/command_manager.c 			\
-							actions/environment_actions.c 		\
+SRC_FILES				= 	main.c 										\
+							minishell.c 								\
+							utils/struct_utils.c 						\
+							utils/parsing_utils.c 						\
+							utils/get_next_line.c 						\
+							builtin/exit_command.c 						\
+							builtin/cd_command.c 						\
+							builtin/setenv_command.c 					\
+							builtin/unsetenv_command.c 					\
+							builtin/printenv_command.c 					\
+							builtin/echo_command.c 						\
+							builtin/env_command.c 						\
+							managers/environment/env_manager.c 			\
+							managers/environment/environment_actions.c 	\
+							managers/prompt_manager.c 					\
+							managers/input_manager.c 					\
+							managers/commands/check_binaries.c 			\
+							managers/commands/command_manager.c 		\
 							handlers/signal_handler.c
 
 SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -47,7 +47,7 @@ LIBRARY_DIR				= 	lib/
 
 CC						=	gcc
 
-CFLAGS					= 	-Wall -Wextra -I $(INCLUDE) -g3
+CFLAGS					= 	-Wall -Wextra -I $(INCLUDE) -g3 ##-lefence
 
 LFLAGS					= 	-L $(LIBRARY_DIR) -lmy
 
