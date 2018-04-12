@@ -9,13 +9,13 @@
 
 void my_putnstr(char *str, int n)
 {
-    int i = -1;
+	int i = -1;
 
-    if (n < 0) {
-        while (str[++i] && i < my_strlen(str) + n)
-            my_putchar(str[i]);
-    } else {
-        while (str[++i] && i < n)
-            my_putchar(str[i]);
-    }
+	if (n < 0) {
+		while (str[++i] && i < my_strlen(str) + n)
+			my_putchar(str[i]);
+	} else {
+		while (str[++i] && i < n)
+			my_putchar(str[i]);
+	}
 }

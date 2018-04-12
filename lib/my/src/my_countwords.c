@@ -5,7 +5,6 @@
 ** count_delimiter_parts function
 */
 
-# include <stdbool.h>
 # include "my.h"
 
 int my_countwords(char *str, char delim)
