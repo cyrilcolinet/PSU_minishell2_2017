@@ -19,7 +19,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <fcntl.h>
 
 typedef struct stat stat_t;
 

@@ -13,6 +13,7 @@ void get_piped_commands(char *cmd, shell_t *shell)
 		my_freetab(shell->pipes->cmds);
 
 	shell->pipes->cmd_count = my_countwords(cmd, '|') - 1;
+
 	if (shell->pipes->cmd_count <= 0) {
 		shell->pipes->cmds = NULL;
 		return;
