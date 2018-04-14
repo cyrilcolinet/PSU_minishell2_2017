@@ -9,9 +9,9 @@
 
 int env_command(char *stdin, char **arg, shell_t *shell)
 {
-    (void)stdin;
-    (void)arg;
+	(void)stdin;
+	(void)arg;
 
-    print_environment(shell);
-    return (1);
+	print_environment(shell);
+	return (1);
 }
