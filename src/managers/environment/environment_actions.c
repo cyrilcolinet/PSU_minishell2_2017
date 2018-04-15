@@ -32,7 +32,8 @@ void env_set_variable(char *variable, char *content, shell_t *shell)
 
 	while (tmp->next != NULL) {
 		if (my_strequ(tmp->next->variable, variable)) {
-			tmp_cont = realloc_char(my_strdup(content), my_strlen(content));
+			tmp_cont = realloc_char(my_strdup(content),
+			my_strlen(content));
 			free(tmp->next->content);
 			tmp->next->content = my_strdup(tmp_cont);
 			free(tmp_cont);

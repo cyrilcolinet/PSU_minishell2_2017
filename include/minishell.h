@@ -20,6 +20,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
 typedef struct stat stat_t;
 
@@ -43,6 +45,9 @@ char 	*join_next_values(char **array);
 char 	*get_next_line(int fdesc);
 char 	*path_join(char *str1, char *str2);
 char 	*replace_char(char *str, char find, char replace);
+
+// utils/error.c
+void 	manage_command_error(shell_t *shell);
 
 // builtin/exit_command.c
 int 	exit_command(char *stdin,  char **arg,  shell_t *shell);

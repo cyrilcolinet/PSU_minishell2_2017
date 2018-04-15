@@ -29,6 +29,7 @@ char *realloc_char(char *ptr, unsigned int size)
 char *join_next_values(char **array)
 {
 	char *str = NULL;
+	int new_len = 0;
 
 	array++;
 	while (*array != NULL) {
@@ -37,7 +38,8 @@ char *join_next_values(char **array)
 		} else {
 			str = realloc_char(str, my_strlen(str) + 1);
 			str = my_strjoin_clear(str, "=", false);
-			str = realloc_char(str, my_strlen(str) + my_strlen(*array));
+			new_len = my_strlen(str) + my_strlen(*array);
+			str = realloc_char(str, new_len);
 			str = my_strjoin_clear(str, *array, false);
 		}
 		array++;
@@ -55,7 +57,8 @@ char *path_join(char *str1, char *str2)
 		if (str2[0] == '/') {
 			return (my_strjoin(str1, str2));
 		} else {
-			tmp2 = my_strjoin_clear(my_strjoin_char(str1, '/'), str2, 0);
+			tmp2 = my_strjoin_clear(my_strjoin_char(str1, '/'), \
+			str2, 0);
 			return (tmp2);
 		}
 	}

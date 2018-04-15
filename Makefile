@@ -20,6 +20,7 @@ SRC_FILES				= 	main.c 										\
 							utils/struct_utils.c 						\
 							utils/parsing_utils.c 						\
 							utils/get_next_line.c 						\
+							utils/error.c 								\
 							builtin/exit_command.c 						\
 							builtin/cd_command.c 						\
 							builtin/setenv_command.c 					\

@@ -15,7 +15,11 @@ bool run_command(char *bin_path, char **arg, shell_t *shell)
 	signal(SIGINT, proc_signal_handler);
 	if (pid == 0) {
 		if ((env = convert_list_to_array(shell->env)) != NULL)
-			execve(bin_path, arg, env);
+			if (execve(bin_path, arg, env) < 0) {
+				manage_command_error(shell);
+				my_freetab(env);
+				return (true);
+			}
 		my_freetab(env);
 	} else if (pid < 0) {
 		free(bin_path);
@@ -73,20 +77,19 @@ int command_exists(int *res, char **arg, char *stdin, shell_t *shell)
 	return (-2);
 }
 
-int perform_pipes_and_redir(char *cmd, char **arg, bool piped, shell_t *shell)
+int perform_pipes_and_redir(char *cmd, char **arg, bool p, shell_t *s)
 {
 	int ret = 0;
 
-	if (!piped) {
-		ret = perform_pipes(cmd, shell);
-		
+	if (!p) {
+		ret = perform_pipes(cmd, s);
+
 		if (ret > 0) {
 			my_freetab(arg);
 			return (ret);
 		}
 	}
 
-	ret = perform_redirections(cmd, shell);
 	return (ret);
 }
 
